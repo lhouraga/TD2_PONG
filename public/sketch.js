@@ -20,7 +20,7 @@ function setup(){
     socket.on('getCounter',function(data){
           counter = data;
           if(p === undefined){
-            if(counter % 2 === 0)
+            if(counter % 2 == 0)
              p= new Player(0);
         else
             p =new Player(width);
@@ -35,7 +35,7 @@ function setup(){
       p:p.p
     };
     socket.emit('start', data);
-    if(counter === 2)
+    if(counter == 2)
     go =true;
   });
     
@@ -54,7 +54,7 @@ function draw(){
     fill(0, 102, 153);
     //text(p.points, 30, 40);
     //text(a.points, width - 80, 40);
-    if(go === true){
+    if(go == true){
     p.show();
     p.move(b);
     b.show();
@@ -71,14 +71,14 @@ function draw(){
     }*/
     if(b.x > width){
         p.points++;
-        //throwBall();
+
     }
     for( var i=0;i<players.length; i++){
        var id =players[i].id;
-       if(id !== socket.id){
+       if(id != socket.id){
          fill(255,0,0);
          rectMode(CENTER);
-         rect(players[i].x,players[i].y,players[i].v,players[i].w,players[i].h);
+         rect(players[i].x,players[i].y,players[i].w,players[i].h);
        }
     }
     var data={

@@ -38,7 +38,7 @@ io.sockets.on('connection', function(socket){
     
     socket.on('start', function(data){
         console.log("Joueur:" + data.id + " numero de connexion " + connections.length );
-        var p = new Player (socket.id,data.x,data.y,data.w,data.h,data.p);
+        var p = new Player (socket.id,data.x,data.y,data.v,data.w,data.h,data.p);
         players.push(p);
     })
     socket.on('update', function(data){

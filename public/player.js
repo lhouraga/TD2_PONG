@@ -8,7 +8,7 @@ function Player(x){
 
    this.show = function(){
     rectMode(CENTER);
-    rect(this.x,this.y,this.w,this.h)
+    rect(this.x,this.y,this.w,this.h);
    }
 
    this.move = function(b){
