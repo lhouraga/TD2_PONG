@@ -36,6 +36,14 @@ function setup(){
     };
     socket.emit('start', data);
 
+    var data={
+      x:b.x,
+      y:b.y,
+      v:b.v,
+      r:b.r,
+    };
+    socket.emit('demarrageBall', data);
+
     if(counter === 2)
     go =true;
   });
@@ -44,26 +52,16 @@ function setup(){
       players=data;
 
   });
-
-/*
-    var data={
-      x:b.x,
-      y:b.y,
-      v:b.v,
-      r:b.r,
-    };
-    socket.emit('demarrageBall', data);*/
-    
-  
-    
-
-/* balle
-    socket.on('MouvementBall', function(data){
+//balle
+    socket.on('heartBeatBall', function(data){
+      if(data !== null){
         b.x =data.x;
         b.y= data.y;
         b.v= data.v;
         b.r=data.r;
-  });*/
+      }
+        
+  });
   }
 
 
@@ -85,14 +83,14 @@ function draw(){
     if(b.collision(p))
       b.xv = 5;
     /*if(b.collision(a))
-      b.xv = -5;
+      b.xv = -5;*/
     if(b.x < 0){
       //a.points++;
-      //throwBall();
-    }*/
+      throwBall();
+    }
     if(b.x > width){
-        p.points++;
-        //throwBall();
+        //p.points++;
+        throwBall();
     }
     for( var i=0;i<players.length; i++){
        var id =players[i].id;
@@ -112,22 +110,22 @@ function draw(){
     }
     socket.emit('update', data);
 
-/*
+
     var data={
       x:b.x,
       y:b.y,
       v:b.v,
       r:b.r
     }
-    socket.emit('ModifierBall', data);*/
+    socket.emit('ModifierBall', data);
   }
 }
 
-/*unction throwBall(){
+function throwBall(){
   b.x=width/2;
   b.y=height/2;
     
-    }*/
+    }
 
 /*
 function showWinner(){
