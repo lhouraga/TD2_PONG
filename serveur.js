@@ -1,5 +1,6 @@
 var connections = [];
 var players=[];
+//var b;
 
 function Player(id,x,y,v,w,h,p){
     this.id=id;
@@ -10,6 +11,15 @@ function Player(id,x,y,v,w,h,p){
     this.h = h;
     this.p = p;
 }
+/*
+function Ball(id,x,y,v,r){
+    this.id=id;
+    this.x = x;
+    this.y = y;
+    this.v = v;
+    this.r = r;
+}
+  */  
 
 var express = require('express');
 var app = express();
@@ -31,16 +41,29 @@ console.log("Execution");
  }
 
  setInterval(heartBeat,33);
+/*
+ function MouvementBall(){
+    io.sockets.emit('MouvementBall',b)
+ }
+
+ setInterval(MouvementBall,33);*/
 
 io.sockets.on('connection', function(socket){
     connections.push(socket);
     getCounter();
     
     socket.on('start', function(data){
-        console.log("Joueur:" + data.id + " numero de connexion " + connections.length );
-        var p = new Player (socket.id,data.x,data.y,data.v,data.w,data.h,data.p);
+        console.log("Joueur:" + connections.length + " numero de connexion " + connections.length );
+        var p = new Player (socket.id,data.x,data.y,data.w,data.h,data.p);
         players.push(p);
     })
+/*
+    socket.on('demarrageBall', function(data){
+        //console.log("Joueur:" + data.id + " numero de connexion " + connections.length );
+        b = new Ball (socket.id,data.x,data.y,data.v,data.r);
+        
+    })*/
+
     socket.on('update', function(data){
         var pl;
         for(var i=0;i<players.length ;i++ ){
@@ -54,6 +77,16 @@ io.sockets.on('connection', function(socket){
         pl.h= data.h;
         pl.p= data.p;
     })
+
+
+  /*  socket.on('ModifierBall', function(data){
+    
+        b.x =data.x;
+        b.y= data.y;
+        b.v= data.v;
+        b.r=data.r;
+        
+    })*/
     
 
 });

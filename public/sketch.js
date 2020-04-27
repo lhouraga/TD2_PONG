@@ -20,7 +20,7 @@ function setup(){
     socket.on('getCounter',function(data){
           counter = data;
           if(p === undefined){
-            if(counter % 2 == 0)
+            if(counter % 2 === 0)
              p= new Player(0);
         else
             p =new Player(width);
@@ -35,7 +35,16 @@ function setup(){
       p:p.p
     };
     socket.emit('start', data);
-    if(counter == 2)
+
+/*
+    var data={
+      x:b.x,
+      y:b.y,
+      v:b.v,
+      r:b.r,
+    };
+    socket.emit('demarrageBall', data);*/
+    if(counter === 2)
     go =true;
   });
     
@@ -43,6 +52,14 @@ function setup(){
         players=data;
 
     });
+
+/* balle
+    socket.on('MouvementBall', function(data){
+        b.x =data.x;
+        b.y= data.y;
+        b.v= data.v;
+        b.r=data.r;
+  });*/
   }
 
 
@@ -54,7 +71,7 @@ function draw(){
     fill(0, 102, 153);
     //text(p.points, 30, 40);
     //text(a.points, width - 80, 40);
-    if(go == true){
+    if(go === true){
     p.show();
     p.move(b);
     b.show();
@@ -65,13 +82,13 @@ function draw(){
       b.xv = 5;
     /*if(b.collision(a))
       b.xv = -5;
-    if(b.x < 0){
-      a.points++;
-      throwBall();
-    }*/
+    */if(b.x < 0){
+      //a.points++;
+      //throwBall();
+    }
     if(b.x > width){
-        p.points++;
-
+        //p.points++;
+        //throwBall();
     }
     for( var i=0;i<players.length; i++){
        var id =players[i].id;
@@ -90,19 +107,25 @@ function draw(){
       p:p.p
     }
     socket.emit('update', data);
+
+/*
+    var data={
+      x:b.x,
+      y:b.y,
+      v:b.v,
+      r:b.r
+    }
+    socket.emit('ModifierBall', data);*/
   }
 }
 
-/*function throwBall(){
-    if(balls.length > 0)
-      b = balls.pop();
-    else {
-      showWinner();
-      alert("Do you want to play again?");
-      window.location.reload();
-    }
-}
+/*unction throwBall(){
+  b.x=width/2;
+  b.y=height/2;
+    
+    }*/
 
+/*
 function showWinner(){
   background(0);
   textSize(80);
