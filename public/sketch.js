@@ -23,7 +23,7 @@ function setup(){
             if(counter % 2 === 0)
              p= new Player(0);
         else
-            p =new Player(width);
+             p =new Player(width);
           }
 
     var data={
@@ -36,6 +36,15 @@ function setup(){
     };
     socket.emit('start', data);
 
+    if(counter === 2)
+    go =true;
+  });
+
+  socket.on('heartBeat', function(data){
+      players=data;
+
+  });
+
 /*
     var data={
       x:b.x,
@@ -44,14 +53,9 @@ function setup(){
       r:b.r,
     };
     socket.emit('demarrageBall', data);*/
-    if(counter === 2)
-    go =true;
-  });
     
-    socket.on('heartBeat', function(data){
-        players=data;
-
-    });
+  
+    
 
 /* balle
     socket.on('MouvementBall', function(data){
@@ -82,17 +86,17 @@ function draw(){
       b.xv = 5;
     /*if(b.collision(a))
       b.xv = -5;
-    */if(b.x < 0){
+    if(b.x < 0){
       //a.points++;
       //throwBall();
-    }
+    }*/
     if(b.x > width){
-        //p.points++;
+        p.points++;
         //throwBall();
     }
     for( var i=0;i<players.length; i++){
        var id =players[i].id;
-       if(id != socket.id){
+       if(id !== socket.id){
          fill(255,0,0);
          rectMode(CENTER);
          rect(players[i].x,players[i].y,players[i].w,players[i].h);
