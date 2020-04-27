@@ -12,11 +12,12 @@ function Player(id,x,y,v,w,h,p){
     this.p = p;
 }
 
-function Ball(id,x,y,v,r){
+function Ball(id,x,y,xv,yv,r){
     this.id=id;
     this.x = x;
     this.y = y;
-    this.v = v;
+    this.xv = xv;
+    this.yv =yv;
     this.r = r;
 } 
 
@@ -57,7 +58,7 @@ io.sockets.on('connection', function(socket){
     })
 
     socket.on('demarrageBall', function(data){
-        b = new Ball (socket.id,data.x,data.y,data.r);
+        b = new Ball (socket.id,data.x,data.y,data.xv,data.yv,data.r);
         
     })
 
@@ -80,7 +81,8 @@ io.sockets.on('connection', function(socket){
     
         b.x =data.x;
         b.y= data.y;
-        b.v= data.v;
+        b.xv= data.xv;
+        b.yv= data.yv;
         b.r=data.r;
         
     })

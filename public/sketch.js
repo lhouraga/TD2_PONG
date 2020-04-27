@@ -39,7 +39,8 @@ function setup(){
     var data={
       x:b.x,
       y:b.y,
-      v:b.v,
+      xv:b.xv,
+      xy:b.yv,
       r:b.r,
     };
     socket.emit('demarrageBall', data);
@@ -57,7 +58,8 @@ function setup(){
       if(data !== null){
         b.x =data.x;
         b.y= data.y;
-        b.v= data.v;
+        b.xv= data.xv;
+        b.yv=data.yv;
         b.r=data.r;
       }
         
@@ -71,19 +73,16 @@ function draw(){
     rect(width/2,0,10,600)
     textSize(48);
     fill(0, 102, 153);
-    //text(p.points, 30, 40);
-    //text(a.points, width - 80, 40);
+    
     if(go === true){
     p.show();
     p.move(b);
     b.show();
-    //a.show();
-    //a.move(b);
     b.move();
-    if(b.collision(p))
+    if(b.collision(p) && p.x === 0)
       b.xv = 5;
-    /*if(b.collision(a))
-      b.xv = -5;*/
+    if(b.collision(p) && p.x === width)
+      b.xv = -5;
     if(b.x < 0){
       //a.points++;
       throwBall();
@@ -114,7 +113,8 @@ function draw(){
     var data={
       x:b.x,
       y:b.y,
-      v:b.v,
+      xv:b.xv,
+      yv:b.yv,
       r:b.r
     }
     socket.emit('ModifierBall', data);
