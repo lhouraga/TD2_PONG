@@ -1,1 +1,1 @@
-# JS-PONG
+# NODE_JS-PONG
